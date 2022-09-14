@@ -215,4 +215,4 @@ var styles = reactNative.StyleSheet.create({
 });
 
 module.exports = Barcode;
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.cjs.map

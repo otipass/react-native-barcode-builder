@@ -1,13 +1,7 @@
-var React = require('react');
-var reactNative = require('react-native');
-var barcodes = require('jsbarcode/src/barcodes');
-var Svg = require('react-native-svg');
-
-function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
-
-var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
-var barcodes__default = /*#__PURE__*/_interopDefaultLegacy(barcodes);
-var Svg__default = /*#__PURE__*/_interopDefaultLegacy(Svg);
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import barcodes from 'jsbarcode/src/barcodes';
+import Svg, { Path } from 'react-native-svg';
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
@@ -52,14 +46,14 @@ var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
   _proto.render = function render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
-      return /*#__PURE__*/React__default["default"].createElement("h1", null, "Something went wrong.");
+      return /*#__PURE__*/React.createElement("h1", null, "Something went wrong.");
     }
 
     return this.props.children;
   };
 
   return ErrorBoundary;
-}(React__default["default"].Component);
+}(React.Component);
 
 var Barcode = function Barcode(_ref) {
   var value = _ref.value,
@@ -78,11 +72,11 @@ var Barcode = function Barcode(_ref) {
       background = _ref$background === void 0 ? '#ffffff' : _ref$background,
       onError = _ref.onError;
 
-  var _useState = React.useState([]),
+  var _useState = useState([]),
       bars = _useState[0],
       setBars = _useState[1];
 
-  var _useState2 = React.useState(0),
+  var _useState2 = useState(0),
       barCodeWidth = _useState2[0],
       setBarCodeWidth = _useState2[1];
 
@@ -97,12 +91,12 @@ var Barcode = function Barcode(_ref) {
     background: background,
     onError: onError
   };
-  React.useEffect(function () {
+  useEffect(function () {
     update();
   }, [value]);
 
   var update = function update() {
-    var encoder = barcodes__default["default"][format];
+    var encoder = barcodes[format];
     var encoded = encode(value, encoder, props);
 
     if (encoded) {
@@ -190,15 +184,15 @@ var Barcode = function Barcode(_ref) {
   var backgroundStyle = {
     backgroundColor: background
   };
-  return /*#__PURE__*/React__default["default"].createElement(ErrorBoundary, null, /*#__PURE__*/React__default["default"].createElement(reactNative.View, {
+  return /*#__PURE__*/React.createElement(ErrorBoundary, null, /*#__PURE__*/React.createElement(View, {
     style: [styles.svgContainer, backgroundStyle]
-  }, /*#__PURE__*/React__default["default"].createElement(Svg__default["default"], {
+  }, /*#__PURE__*/React.createElement(Svg, {
     height: height,
     width: barCodeWidth,
     fill: lineColor
-  }, /*#__PURE__*/React__default["default"].createElement(Svg.Path, {
+  }, /*#__PURE__*/React.createElement(Path, {
     d: bars.join(' ')
-  })), typeof text !== 'undefined' && /*#__PURE__*/React__default["default"].createElement(reactNative.Text, {
+  })), typeof text !== 'undefined' && /*#__PURE__*/React.createElement(Text, {
     style: {
       color: textColor,
       width: barCodeWidth,
@@ -207,12 +201,12 @@ var Barcode = function Barcode(_ref) {
   }, text)));
 };
 
-var styles = reactNative.StyleSheet.create({
+var styles = StyleSheet.create({
   svgContainer: {
     alignItems: 'center',
     padding: 10
   }
 });
 
-module.exports = Barcode;
-//# sourceMappingURL=index.js.map
+export { Barcode as default };
+//# sourceMappingURL=index.esm.mjs.map

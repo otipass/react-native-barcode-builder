@@ -1,4 +1,3 @@
-/// <reference types="react" />
 declare type props = {
     value: string;
     format: string;

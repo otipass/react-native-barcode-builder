@@ -1,63 +1,91 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react-native'), require('jsbarcode/src/barcodes'), require('react-native-svg'), require('react')) :
-  typeof define === 'function' && define.amd ? define(['react-native', 'jsbarcode/src/barcodes', 'react-native-svg', 'react'], factory) :
-  (global.reactNativeBarcodeExpo = factory(global.reactNative,global.barcodes,global.Svg,global.react));
-}(this, (function (reactNative,barcodes,Svg,React) {
-  barcodes = barcodes && barcodes.hasOwnProperty('default') ? barcodes['default'] : barcodes;
-  var Svg__default = 'default' in Svg ? Svg['default'] : Svg;
-  var React__default = 'default' in React ? React['default'] : React;
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('react-native'), require('jsbarcode/src/barcodes'), require('react-native-svg')) :
+  typeof define === 'function' && define.amd ? define(['react', 'react-native', 'jsbarcode/src/barcodes', 'react-native-svg'], factory) :
+  (global = global || self, global.reactNativeBarcodeExpo = factory(global.react, global.reactNative, global.barcodes, global.reactNativeSvg));
+})(this, (function (React, reactNative, barcodes, Svg) {
+  function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-  var ErrorBoundary = /*@__PURE__*/(function (superclass) {
+  var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+  var barcodes__default = /*#__PURE__*/_interopDefaultLegacy(barcodes);
+  var Svg__default = /*#__PURE__*/_interopDefaultLegacy(Svg);
+
+  function _inheritsLoose(subClass, superClass) {
+    subClass.prototype = Object.create(superClass.prototype);
+    subClass.prototype.constructor = subClass;
+
+    _setPrototypeOf(subClass, superClass);
+  }
+
+  function _setPrototypeOf(o, p) {
+    _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+      o.__proto__ = p;
+      return o;
+    };
+    return _setPrototypeOf(o, p);
+  }
+
+  var ErrorBoundary = /*#__PURE__*/function (_React$Component) {
+    _inheritsLoose(ErrorBoundary, _React$Component);
+
     function ErrorBoundary(props) {
-      superclass.call(this, props);
-      this.state = {
+      var _this;
+
+      _this = _React$Component.call(this, props) || this;
+      _this.state = {
         hasError: false
       };
+      return _this;
     }
 
-    if ( superclass ) ErrorBoundary.__proto__ = superclass;
-    ErrorBoundary.prototype = Object.create( superclass && superclass.prototype );
-    ErrorBoundary.prototype.constructor = ErrorBoundary;
-
-    ErrorBoundary.getDerivedStateFromError = function getDerivedStateFromError (error) {
+    ErrorBoundary.getDerivedStateFromError = function getDerivedStateFromError(error) {
       return {
         hasError: true
       };
     };
 
-    ErrorBoundary.prototype.componentDidCatch = function componentDidCatch (error, errorInfo) {
+    var _proto = ErrorBoundary.prototype;
+
+    _proto.componentDidCatch = function componentDidCatch(error, errorInfo) {
       console.log(error, errorInfo);
     };
 
-    ErrorBoundary.prototype.render = function render () {
+    _proto.render = function render() {
       if (this.state.hasError) {
         // You can render any custom fallback UI
-        return React__default.createElement( 'h1', null, "Something went wrong." );
+        return /*#__PURE__*/React__default["default"].createElement("h1", null, "Something went wrong.");
       }
 
       return this.props.children;
     };
 
     return ErrorBoundary;
-  }(React__default.Component));
+  }(React__default["default"].Component);
 
-  var Barcode = function (ref) {
-    var value = ref.value;
-    var format = ref.format; if ( format === void 0 ) format = 'CODE128';
-    var width = ref.width; if ( width === void 0 ) width = 2;
-    var height = ref.height; if ( height === void 0 ) height = 100;
-    var text = ref.text;
-    var textColor = ref.textColor; if ( textColor === void 0 ) textColor = '#000000';
-    var lineColor = ref.lineColor; if ( lineColor === void 0 ) lineColor = '#000000';
-    var background = ref.background; if ( background === void 0 ) background = '#ffffff';
-    var onError = ref.onError;
+  var Barcode = function Barcode(_ref) {
+    var value = _ref.value,
+        _ref$format = _ref.format,
+        format = _ref$format === void 0 ? 'CODE128' : _ref$format,
+        _ref$width = _ref.width,
+        width = _ref$width === void 0 ? 2 : _ref$width,
+        _ref$height = _ref.height,
+        height = _ref$height === void 0 ? 100 : _ref$height,
+        text = _ref.text,
+        _ref$textColor = _ref.textColor,
+        textColor = _ref$textColor === void 0 ? '#000000' : _ref$textColor,
+        _ref$lineColor = _ref.lineColor,
+        lineColor = _ref$lineColor === void 0 ? '#000000' : _ref$lineColor,
+        _ref$background = _ref.background,
+        background = _ref$background === void 0 ? '#ffffff' : _ref$background,
+        onError = _ref.onError;
 
-    var ref$1 = React.useState([]);
-    var bars = ref$1[0];
-    var setBars = ref$1[1];
-    var ref$2 = React.useState(0);
-    var barCodeWidth = ref$2[0];
-    var setBarCodeWidth = ref$2[1];
+    var _useState = React.useState([]),
+        bars = _useState[0],
+        setBars = _useState[1];
+
+    var _useState2 = React.useState(0),
+        barCodeWidth = _useState2[0],
+        setBarCodeWidth = _useState2[1];
+
     var props = {
       value: value,
       format: format,
@@ -73,8 +101,8 @@
       update();
     }, [value]);
 
-    var update = function () {
-      var encoder = barcodes[format];
+    var update = function update() {
+      var encoder = barcodes__default["default"][format];
       var encoded = encode(value, encoder, props);
 
       if (encoded) {
@@ -83,7 +111,7 @@
       }
     };
 
-    var drawSvgBarCode = function (encoding, options) {
+    var drawSvgBarCode = function drawSvgBarCode(encoding, options) {
       var rects = []; // binary data of barcode
 
       var binary = encoding.data;
@@ -110,12 +138,12 @@
       return rects;
     };
 
-    var drawRect = function (x, y, width, height) {
-      return ("M" + x + "," + y + "h" + width + "v" + height + "h-" + width + "z");
+    var drawRect = function drawRect(x, y, width, height) {
+      return "M" + x + "," + y + "h" + width + "v" + height + "h-" + width + "z";
     }; // encode() handles the Encoder call and builds the binary string to be rendered
 
 
-    var encode = function (text, Encoder, options) {
+    var encode = function encode(text, Encoder, options) {
       // If text is not a non-empty string, throw error.
       if (typeof text !== 'string' || text.length === 0) {
         if (options.onError) {
@@ -162,20 +190,21 @@
     var backgroundStyle = {
       backgroundColor: background
     };
-    return React__default.createElement( ErrorBoundary, null,
-        React__default.createElement( reactNative.View, { style: [styles.svgContainer, backgroundStyle] },
-          React__default.createElement( Svg__default, { height: height, width: barCodeWidth, fill: lineColor },
-            React__default.createElement( Svg.Path, { d: bars.join(' ') })
-          ),
-          typeof text !== 'undefined' && React__default.createElement( reactNative.Text, { style: {
-          color: textColor,
-          width: barCodeWidth,
-          textAlign: 'center'
-        } },
-              text
-            )
-        )
-      );
+    return /*#__PURE__*/React__default["default"].createElement(ErrorBoundary, null, /*#__PURE__*/React__default["default"].createElement(reactNative.View, {
+      style: [styles.svgContainer, backgroundStyle]
+    }, /*#__PURE__*/React__default["default"].createElement(Svg__default["default"], {
+      height: height,
+      width: barCodeWidth,
+      fill: lineColor
+    }, /*#__PURE__*/React__default["default"].createElement(Svg.Path, {
+      d: bars.join(' ')
+    })), typeof text !== 'undefined' && /*#__PURE__*/React__default["default"].createElement(reactNative.Text, {
+      style: {
+        color: textColor,
+        width: barCodeWidth,
+        textAlign: 'center'
+      }
+    }, text)));
   };
 
   var styles = reactNative.StyleSheet.create({
@@ -187,5 +216,5 @@
 
   return Barcode;
 
-})));
+}));
 //# sourceMappingURL=index.umd.js.map
